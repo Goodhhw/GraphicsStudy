@@ -75,11 +75,78 @@ void CheckArithmeticType()
     }
 }
 
-// Template 부분 특수화
+// Template 부분 특수화 (Partial specialization)
+template <typename T1, typename T2>
+class Pair2
+{
+private:
+    T1 first;
+    T2 second;
+public:
+    Pair2(T1 a, T2 b) : first(a), second(b){}
+    T1 getFirst() const {return first;}
+    T2 getSecond() const {return second;}
+};
+
+template <typename T>
+class Pair2<T, T>
+{
+private:
+    T first;
+    T second;
+public:
+    Pair2(T a, T b) : first(a), second(b) {}
+    T getFirst() const {return first;}
+    T getSecond() const {return second;}
+    T getSum() const {return first + second;}
+};
+
+template <typename T>
+class Pair2<T*, T*>
+{
+private:
+    T* first;
+    T* second;
+public:
+    Pair2(T* a, T* b) : first(a), second(b) {}
+    T* getFirst() const {return first;}
+    T* getSecond() const {return second;}
+    T getDereferencedSum() const {return *first + *second;}
+};
 
 // Template Meta Programing (TMP)
 template <int N>
 struct Factorial
 {
     static const int value = N * Factorial<N - 1>::value;
+};
+
+
+class TemplateExample
+{
+public:
+    static void Run()
+    {
+        std::cout << max(3, 7) << std::endl;
+        std::cout << max(3.5, 7.2) << std::endl;
+        std::cout << max('a', 'b') << std::endl;
+
+        Pair<int> intPair(1, 2);
+        Pair<double> doublePair(3.5, 4.5);
+        Pair<const char*> charPair("hello", "world");
+
+        std::cout << "Int Pair: " << intPair.getFirst() << ", " << intPair.getSecond() << std::endl;
+        std::cout << "Double Pair: " << doublePair.getFirst() << ", " << doublePair.getSecond() << std::endl;
+        std::cout << "Char Pair comparison: " << charPair.compare() << std::endl;
+        
+        Pair2<int, double> mixedPair(1, 2.5);
+        std::cout << "Mixed Pair: (" << mixedPair.getFirst() << ", " << mixedPair.getSecond() << ")" << std::endl;
+    
+        Pair2<int, int> intPair2(3, 4);
+        std::cout << "Int Pair: (" << intPair2.getFirst() << ", " << intPair2.getSecond() << ") with sum: " << intPair2.getSum() << std::endl;
+
+        int a = 5, b = 6;
+        Pair2<int*, int*> pointerPair(&a, &b);
+        std::cout << "Pointer Pair: (" << *pointerPair.getFirst() << ", " << *pointerPair.getSecond() << ") with dereferenced sum: " << pointerPair.getDereferencedSum() << std::endl;
+    }
 };
