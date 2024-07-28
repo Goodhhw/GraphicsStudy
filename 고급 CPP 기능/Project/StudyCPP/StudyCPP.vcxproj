@@ -102,7 +102,6 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
@@ -154,10 +153,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="pch.cpp" />
     <ClCompile Include="StudyCPP.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Template.h" />
+    <ClInclude Include="Example\BaseExample.h" />
+    <ClInclude Include="Example\DataStructureExample.h" />
+    <ClInclude Include="Example\STLExample.h" />
+    <ClInclude Include="Example\TemplateExample.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

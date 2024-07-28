@@ -2,8 +2,10 @@
 
 #include <iostream>
 
+#include "BaseExample.h"
+
 template <typename T>
-T max(T a, T b)
+T tmax(T a, T b)
 {
     return (a > b) ? a : b;
 }
@@ -121,15 +123,19 @@ struct Factorial
     static const int value = N * Factorial<N - 1>::value;
 };
 
-
-class TemplateExample
+class TemplateExample : public ExampleBase
 {
-public:
-    static void Run()
+protected:
+    virtual string getTitle() const override
     {
-        std::cout << max(3, 7) << std::endl;
-        std::cout << max(3.5, 7.2) << std::endl;
-        std::cout << max('a', 'b') << std::endl;
+        return "TemplateExample";
+    }
+    
+    virtual void ChildRun() override
+    {
+        std::cout << tmax(3, 7) << std::endl;
+        std::cout << tmax(3.5, 7.2) << std::endl;
+        std::cout << tmax('a', 'b') << std::endl;
 
         Pair<int> intPair(1, 2);
         Pair<double> doublePair(3.5, 4.5);
